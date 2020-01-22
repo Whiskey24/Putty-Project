@@ -1,0 +1,3 @@
+[submodule "ExternalLibs/Protothreads"]
+	path = ExternalLibs/Protothreads
+	url = https://github.com/shixiongfei/Protothreads.git
