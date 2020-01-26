@@ -1,0 +1,58 @@
+#include <Arduino.h>
+#include <pt.h>
+
+#define RED_LED 14
+#define GREEN_LED 12
+
+static struct pt pt1, pt2;
+static int protothreadBlinkRedLED(struct pt *pt, int setSecondsOn,
+                                  int setSecondsOff) {
+  static unsigned long lastTimeBlink = 0;
+  static int milliSecondsOn = setSecondsOn * 1000;
+  static int milliSecondsOff = setSecondsOff * 1000;
+  PT_BEGIN(pt);
+  while (1) {
+    lastTimeBlink = millis();
+    PT_WAIT_UNTIL(pt, millis() - lastTimeBlink > milliSecondsOff);
+    digitalWrite(RED_LED, HIGH);
+    lastTimeBlink = millis();
+    PT_WAIT_UNTIL(pt, millis() - lastTimeBlink > milliSecondsOn);
+    digitalWrite(RED_LED, LOW);
+  }
+  PT_END(pt);
+}
+
+static int protothreadBlinkGreenLED(struct pt *pt, int setSecondsOn,
+                                    int setSecondsOff) {
+  static unsigned long lastTimeBlink = 0;
+  static int milliSecondsOn = setSecondsOn * 1000;
+  static int milliSecondsOff = setSecondsOff * 1000;
+  PT_BEGIN(pt);
+  while (1) {
+    lastTimeBlink = millis();
+    PT_WAIT_UNTIL(pt, millis() - lastTimeBlink > milliSecondsOff);
+    digitalWrite(GREEN_LED, HIGH);
+    lastTimeBlink = millis();
+    PT_WAIT_UNTIL(pt, millis() - lastTimeBlink > milliSecondsOn);
+    digitalWrite(GREEN_LED, LOW);
+  }
+  PT_END(pt);
+}
+
+void setup() {
+  pinMode(RED_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  PT_INIT(&pt1);
+  PT_INIT(&pt2);
+}
+
+void blinkRedLED() { protothreadBlinkRedLED(&pt1, 2, 1); }
+void blinkRedLED(int secondsOn, int secondsOff) {
+  protothreadBlinkRedLED(&pt1, secondsOn, secondsOff);
+}
+
+void loop() {
+  // Use classes!
+  blinkRedLED();
+  protothreadBlinkGreenLED(&pt2, 1, 3);
+}

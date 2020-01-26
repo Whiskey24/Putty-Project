@@ -1,9 +1,13 @@
 #include <Arduino.h>
+#include <StatusLEDs.h>
+#include <pt.h>
 
 void setup() {
-  // put your setup code here, to run once:
+  StatusLEDs::setup();
+  StatusLEDs::setLEDStatus(CurrentLEDStatus::Running);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  StatusLEDs::protothreadLEDGreen();
+  StatusLEDs::protothreadLEDRed();
 }
