@@ -1,6 +1,7 @@
 #include "statusLEDs.h"
-#include "hardwareConsts.h"
 #include <Arduino.h>
+#include <hardwareConsts.h>
+#include <log4arduino.h>
 #include <pt.h>
 
 // private static
@@ -10,17 +11,15 @@ int StatusLEDs::milliSecondsOnGreen = 1000;
 int StatusLEDs::milliSecondsOffGreen = 1000;
 int StatusLEDs::milliSecondsOnRed = 0;
 int StatusLEDs::milliSecondsOffRed = 2147483647;
-// CurrentGreenStatus StatusLEDs::greenStatus = CurrentGreenStatus::Off;
-// CurrentRedStatus StatusLEDs::redStatus = CurrentRedStatus::Off;
 CurrentLEDStatus StatusLEDs::cLEDStatus = CurrentLEDStatus::Off;
 
 void StatusLEDs::setup() {
-  Serial.println("StatusLeds setup started");
+  LOG("StatusLEDs setup started");
   pinMode(UC_PIN_LED_GREEN, OUTPUT);
   pinMode(UC_PIN_LED_RED, OUTPUT);
   PT_INIT(&ptLEDGreen);
   PT_INIT(&ptLEDRed);
-  Serial.println("StatusLeds setup completed");
+  LOG("StatusLEDs setup completed");
 }
 
 int StatusLEDs::protothreadLEDGreen() {
@@ -58,28 +57,34 @@ int StatusLEDs::protothreadLEDRed() {
 void StatusLEDs::setLEDStatus(CurrentLEDStatus cLEDstatus) {
   switch (cLEDstatus) {
   case Off:
+    LOG("Setting statusLEDs status to Off");
     milliSecondsOnGreen = 0;
     milliSecondsOffGreen = 2147483647;
     milliSecondsOnRed = 0;
     milliSecondsOffRed = 2147483647;
     break;
   case Booting:
-    milliSecondsOnGreen = 1000;
-    milliSecondsOffGreen = 1000;
+    LOG("Setting statusLEDs status to Booting");
+    milliSecondsOnGreen = 200;
+    milliSecondsOffGreen = 200;
     break;
   case Running:
+    LOG("Setting statusLEDs status to Running");
     milliSecondsOnGreen = 3000;
     milliSecondsOffGreen = 1000;
     break;
   case Activity:
+    LOG("Setting statusLEDs status to Activity");
     milliSecondsOnGreen = 500;
     milliSecondsOffGreen = 500;
     break;
   case ErrorLight:
+    LOG("Setting statusLEDs status to Light Error");
     milliSecondsOnRed = 1000;
     milliSecondsOffRed = 1000;
     break;
   case ErrorSevere:
+    LOG("Setting statusLEDs status to Severe Error");
     milliSecondsOnRed = 500;
     milliSecondsOffRed = 500;
     break;
@@ -89,13 +94,3 @@ void StatusLEDs::setLEDStatus(CurrentLEDStatus cLEDstatus) {
     break;
   }
 }
-
-/*
-
-status lights for:
-- nominal operation
-- activity
-- error light
-- error severe
-
-*/
