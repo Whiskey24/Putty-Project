@@ -1,3 +1,6 @@
 [submodule "ExternalLibs/Protothreads"]
 	path = ExternalLibs/Protothreads
 	url = https://github.com/shixiongfei/Protothreads.git
+[submodule "ExternalLibs/log4arduino"]
+	path = ExternalLibs/log4arduino
+	url = https://github.com/jandelgado/log4arduino.git
