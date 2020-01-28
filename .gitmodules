@@ -4,3 +4,6 @@
 [submodule "ExternalLibs/log4arduino"]
 	path = ExternalLibs/log4arduino
 	url = https://github.com/jandelgado/log4arduino.git
+[submodule "ExternalLibs/HX711"]
+	path = ExternalLibs/HX711
+	url = https://github.com/bogde/HX711.git
