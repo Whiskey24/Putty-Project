@@ -1,4 +1,4 @@
-#include "statusLEDs.h"
+#include "CatScale.h"
 #include <Arduino.h>
 #include <hardwareConsts.h>
 #include <log4arduino.h>
@@ -12,4 +12,4 @@ void CatScale::setup() {
   LOG("CatScale setup started");
 
   LOG("CatScale setup completed");
-}
+};
