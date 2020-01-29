@@ -3,7 +3,6 @@
 #include <hardwareConsts.h>
 #include <log4arduino.h>
 #include <pt.h>
-#include "CatScale.h"
 
 // private static
 pt CatScale::ptCatScale;
@@ -11,8 +10,7 @@ pt CatScale::ptCatScale;
 HX711 *CatScale::catScale1;
 HX711 *CatScale::catScale2;
 
-void CatScale::setup()
-{
+void CatScale::setup() {
   LOG("CatScale setup started");
   catScale1 = new HX711();
   catScale2 = new HX711();
@@ -23,12 +21,10 @@ void CatScale::setup()
   LOG("CatScale setup completed");
 };
 
-int CatScale::protothreadCatScale()
-{
+int CatScale::protothreadCatScale() {
   PT_BEGIN(&ptCatScale);
 
-  while (1)
-  {
+  while (1) {
   }
 
   PT_END(&ptCatScale);

@@ -1,8 +1,7 @@
 #pragma once
 #include <HX711.h>
 
-class CatScale
-{
+class CatScale {
 public:
   static void setup();
   static int protothreadCatScale();
