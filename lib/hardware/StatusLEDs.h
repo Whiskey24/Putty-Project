@@ -1,6 +1,7 @@
 #pragma once
 
-enum CurrentLEDStatus {
+enum CurrentLEDStatus
+{
   Off = 1,
   Booting,
   Running,
@@ -10,7 +11,8 @@ enum CurrentLEDStatus {
   ErrorReset
 };
 
-class StatusLEDs {
+class StatusLEDs
+{
 public:
   static void setup();
   static int protothreadLEDGreen();
